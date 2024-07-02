@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+
+/lib/*
+/bin/*
+/frontend/node_modules/*
+/.idea
