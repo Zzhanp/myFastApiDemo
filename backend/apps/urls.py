@@ -15,7 +15,7 @@ class Game(BaseModel):
     gameAccount: str = None
 
 
-gamePlatform = APIRouter(prefix="/gamePurchase")
+gamePlatform = APIRouter(prefix="/gamePlatform")
 
 
 @gamePlatform.post("/list")

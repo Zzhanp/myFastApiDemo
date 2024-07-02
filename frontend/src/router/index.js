@@ -150,6 +150,21 @@ export const constantRoutes = [
   },
 
   {
+    path: "/gamePlatform",
+    component: Layout,
+    name: "游戏统计",
+    meta: { title: "游戏统计", icon: "el-icon-s-help" },
+    children: [
+      {
+        path: "index",
+        name: "列表",
+        component: () => import("@/views/gamePlatform.vue"),
+        meta: { title: "游戏统计列表", icon: "table" },
+      },
+    ],
+  },
+
+  {
     path: 'external-link',
     component: Layout,
     children: [
