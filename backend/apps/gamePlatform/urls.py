@@ -11,7 +11,7 @@ from common import commonResult
 
 class Game(BaseModel):
     gameName: str
-    purchasePlatform: str = None
+    platform: str = None
     gamePrice: float = None
     purchaseDate: date = None
     gameAccount: str = None
@@ -29,7 +29,7 @@ gamePlatform = APIRouter(prefix="/gamePlatform")
 def get_game_list(game: Game):
     data = {
         "gameName": "大表哥",
-        "purchasePlatform": "Steam",
+        "platform": "Steam",
         "gamePrice": "20.00",
         "purchaseDate": "2024-02-01",
         "gameAccount": "Zzhanp"
