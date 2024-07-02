@@ -2,16 +2,17 @@
   <div class="game-purchase-list">
     <el-card>
       <div slot="header">
-        <el-input v-model="searchQuery" placeholder="搜索游戏名" @keyup.enter.native="fetchData" style="width: 300px;"></el-input>
+        <el-input v-model="searchQuery" placeholder="游戏名" @keyup.enter.native="fetchData" style="width: 300px;"></el-input>
+        <el-input v-model="searchQuery" placeholder="平台" @keyup.enter.native="fetchData" style="width: 300px;"></el-input>
         <el-button type="primary" icon="el-icon-search" @click="fetchData">搜索</el-button>
         <el-button type="success" icon="el-icon-plus" @click="openDialog('add')">添加</el-button>
       </div>
       <el-table :data="list" style="width: 100%">
         <el-table-column prop="gameName" label="游戏名" width="180"></el-table-column>
         <el-table-column prop="platform" label="购买平台" width="180"></el-table-column>
-        <el-table-column prop="purchaseTime" label="购买时间" width="180"></el-table-column>
-        <el-table-column prop="price" label="购买价格" width="180"></el-table-column>
-        <el-table-column prop="accountName" label="账户名" width="180"></el-table-column>
+        <el-table-column prop="purchaseDate" label="购买时间" width="180"></el-table-column>
+        <el-table-column prop="gamegamePrice" label="购买价格" width="180"></el-table-column>
+        <el-table-column prop="gameAccount" label="账户名" width="180"></el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
             <el-button size="mini" @click="openDialog('edit', scope.row)">编辑</el-button>
@@ -36,13 +37,13 @@
           <el-input v-model="form.platform"></el-input>
         </el-form-item>
         <el-form-item label="购买时间">
-          <el-date-picker v-model="form.purchaseTime" type="datetime" placeholder="选择日期时间"></el-date-picker>
+          <el-date-picker v-model="form.purchaseDate" type="datetime" placeholder="选择日期时间"></el-date-picker>
         </el-form-item>
         <el-form-item label="购买价格">
-          <el-input v-model="form.price" type="number"></el-input>
+          <el-input v-model="form.gamePrice" type="number"></el-input>
         </el-form-item>
         <el-form-item label="账户名">
-          <el-input v-model="form.accountName"></el-input>
+          <el-input v-model="form.gameAccount"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -68,15 +69,15 @@ export default {
         id: '',
         gameName: '',
         platform: '',
-        purchaseTime: '',
-        price: '',
-        accountName: ''
+        purchaseDate: '',
+        gamePrice: '',
+        gameAccount: ''
       }
     }
   },
   methods: {
     fetchData() {
-      getGameList({ search: this.searchQuery }).then(response => {
+      getGameList(this.searchQuery).then(response => {
         this.list = response.data.items
         this.total = response.data.total
       })
@@ -91,22 +92,22 @@ export default {
           id: '',
           gameName: '',
           platform: '',
-          purchaseTime: '',
-          price: '',
-          accountName: ''
+          purchaseDate: '',
+          gamePrice: '',
+          gameAccount: ''
         }
       }
       this.dialogVisible = true
     },
     handleSave() {
-      const api = this.form.id ? updateItem : createItem
+      const api = this.form.id ? updateGame() : addGame()
       api(this.form).then(() => {
         this.dialogVisible = false
         this.fetchData()
       })
     },
     deleteItem(id) {
-      deleteItem(id).then(() => {
+      deleteGame(id).then(() => {
         this.fetchData()
       })
     },
