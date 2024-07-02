@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { fetchList, createItem, updateItem, deleteItem } from '@/api/gamePurchase'
+import { getGameList, addGame, updateGame, deleteGame } from '@/api/gamePlatform'
 
 export default {
   data() {
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     fetchData() {
-      fetchList({ search: this.searchQuery }).then(response => {
+      getGameList({ search: this.searchQuery }).then(response => {
         this.list = response.data.items
         this.total = response.data.total
       })
