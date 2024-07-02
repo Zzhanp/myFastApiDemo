@@ -24,3 +24,11 @@ export function deleteGame(params) {
   })
 }
 
+export function updateGame(params) {
+  return request({
+    url: '/gamePlatform/updateById',
+    method: 'post',
+    params
+  })
+}
+
