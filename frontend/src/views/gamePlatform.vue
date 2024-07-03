@@ -1,12 +1,25 @@
 <template>
   <div class="game-purchase-list">
     <el-card>
-      <div slot="header">
-        <el-input v-model="searchQuery" placeholder="游戏名" @keyup.enter.native="fetchData" style="width: 300px;"></el-input>
-        <el-input v-model="searchQuery" placeholder="平台" @keyup.enter.native="fetchData" style="width: 300px;"></el-input>
-        <el-button type="primary" icon="el-icon-search" @click="fetchData">搜索</el-button>
-        <el-button type="success" icon="el-icon-plus" @click="openDialog('add')">添加</el-button>
-      </div>
+      <el-col class="item-space">
+        <el-form label-position="right" :inline="true" ref="form" :model="form" label-width="80px">
+          <el-form-item label="游戏名称">
+            <el-input v-model="form.gameName" placeholder="请输入游戏名" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="平台">
+            <el-input v-model="form.platform" placeholder="请输入平台" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="账号">
+            <el-input v-model="form.gameAccount" placeholder="请输入账户名" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="">
+            <el-button type="primary" @click="fetchData">查 询</el-button>
+          </el-form-item>
+          <el-form-item label="">
+            <el-button type="primary" @click="handleSave">新 建</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
       <el-table :data="list" style="width: 100%">
         <el-table-column prop="gameName" label="游戏名" width="180"></el-table-column>
         <el-table-column prop="platform" label="购买平台" width="180"></el-table-column>
@@ -77,7 +90,15 @@ export default {
   },
   methods: {
     fetchData() {
-      getGameList(this.searchQuery).then(response => {
+      this.pageParams = {
+        page: 1,
+        per_page: 10
+      }
+      let params = {
+        ...this.pageParams,
+        ...this.form
+      }
+      getGameList(params).then(response => {
         this.list = response.data.items
         this.total = response.data.total
       })
