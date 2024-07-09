@@ -21,7 +21,7 @@ class Game(BaseModel):
             raise ValueError("price must be greater than 0")
 
 
-gamePlatform = APIRouter(prefix="/autoPlatform")
+gamePlatform = APIRouter(prefix="/gutoPlatform")
 
 
 @gamePlatform.post("/list")
