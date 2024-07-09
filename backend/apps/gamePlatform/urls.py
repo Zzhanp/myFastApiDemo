@@ -8,7 +8,6 @@ from typing_extensions import Self
 from fastapi import APIRouter
 from pydantic import BaseModel, Field, field_validator
 from common import commonResult
-
 class Game(BaseModel):
     gameName: str
     platform: str = None
@@ -22,7 +21,7 @@ class Game(BaseModel):
             raise ValueError("price must be greater than 0")
 
 
-gamePlatform = APIRouter(prefix="/gamePlatform")
+gamePlatform = APIRouter(prefix="/autoPlatform")
 
 
 @gamePlatform.post("/list")
