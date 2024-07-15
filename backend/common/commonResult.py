@@ -3,12 +3,12 @@ from fastapi.responses import JSONResponse, Response
 from typing import Union
 
 
-def resp_200(*, data: Union[list, dict, str]) -> Response:
+def response(*, code=200, data: Union[list, dict, str] = None, message: str = "Success") -> Response:
     return JSONResponse(
         status_code=status.HTTP_200_OK,
         content={
-            "code": 200,
-            "message": "Success",
+            "code": code,
+            "message": message,
             "data": data
         }
     )
